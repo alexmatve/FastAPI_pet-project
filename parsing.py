@@ -50,7 +50,7 @@ def parser(URL_TEMPLATE):
     return data
 
 
-logging.basicConfig(level=logging.INFO, filename='parsing_logging.log',
+logging.basicConfig(level=logging.INFO, filename='data_logging.log',
                     format='%(levelname)s (%(asctime)s: %(message)s (Line: %(lineno)d) [%(filename)s]',
                     datefmt='%d/%m/%Y %I:%M:%S',
                     filemode='w',
@@ -86,9 +86,4 @@ df_merged.reset_index(drop=True, inplace=True)
 df_skills.rename(columns={'skill_id': 'id', 'skill': 'name'}, inplace=True)
 
 df_skills = df_skills[['id', 'name']]
-print(df_skills.head())
-print("---------------------------")
-print(df.head())
-print("---------------------------")
 
-print(df_merged.head())

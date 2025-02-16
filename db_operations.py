@@ -1,17 +1,13 @@
 from sqlalchemy.orm import relationship, sessionmaker
 import sqlalchemy
-
 import os
-
 from sqlalchemy import Table, Column, Integer, String, MetaData, \
     create_engine, ForeignKey
-import logging
 from dotenv import load_dotenv
 
 from parsing import df, df_skills, df_merged
-from crud import Crud
+from repository import Crud
 
-from models import Vacancy, Skill, ConnectionTable
 
 import logging
 
@@ -25,9 +21,7 @@ logging.basicConfig(level=logging.INFO, filename='data_logging.log',
 logging.info("db_operations")
 
 load_dotenv()
-#
-#
-# logging.info('Подключение к базе данных')
+
 Base = sqlalchemy.orm.declarative_base()
 
 DB_HOST = os.getenv('DB_HOST')

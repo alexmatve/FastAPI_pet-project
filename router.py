@@ -1,11 +1,7 @@
-
 from typing import List, Optional, Union
-
 from fastapi import FastAPI, Request, status, APIRouter, Depends, Query
-
-
 from schemas import VacancySchema, VacancySchemaId, VacancySchemaIdSkills, VacancySchemaSkills
-from crud import Crud
+from repository import Crud
 # from test import session
 from models import session
 import logging
@@ -14,8 +10,9 @@ logging.basicConfig(level=logging.INFO, filename='data_logging.log',
                     datefmt='%d/%m/%Y %I:%M:%S',
                     filemode='w',
                     encoding='utf-8')
-router = APIRouter(prefix='/vacancy', tags=["Вакансии"])
 
+logging.info('route file is running')
+router = APIRouter(prefix='/vacancy', tags=["Вакансии"])
 
 @router.get('/')
 def get_vacancy() -> list[VacancySchemaId]:
@@ -28,7 +25,7 @@ def get_vacancy() -> list[VacancySchemaId]:
 @router.get('/{id_vacancy}')
 def get_id_vacancy(id_vacancy: int) -> VacancySchemaIdSkills:
     vacancy = Crud.get_vacancy_by_id(db=session, vacancy_id=id_vacancy)
-    vacancy = VacancySchemaIdSkills.from_orm(vacancy)
+    vacancy = VacancySchemaIdSkills.model_validate(vacancy)
 
     skills = Crud.get_skills_for_vacancy(db=session, id_vacancy=id_vacancy)
     vacancy.skills = skills

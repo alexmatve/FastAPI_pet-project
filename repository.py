@@ -13,13 +13,12 @@ logging.basicConfig(level=logging.INFO, filename='data_logging.log',
                     filemode='w',
                     encoding='utf-8')
 
-logging.info('crud started')
 
 class Crud:
     @classmethod
     def get_vacancy(cls, db: Session, skip: int = 0, limit: int = 100) -> list[VacancySchemaId]:
 
-        vacancies_models = db.query(Vacancy).offset(skip).limit(limit).all()
+        vacancies_models = db.query(Vacancy).order_by(Vacancy.id).offset(skip).limit(limit).all()
         logging.info('Данные были взяты успешно')
         try:
             vacancies = [VacancySchemaId.model_validate(vac) for vac in vacancies_models]
@@ -31,7 +30,7 @@ class Crud:
     @classmethod
     def get_skill(cls, db: Session, skip: int = 0, limit: int = 100) -> VacancySchema:
         vacancy_model = db.query(Skill).offset(skip).limit(limit).first()
-        vacancy = VacancySchema.from_orm(vacancy_model)
+        vacancy = VacancySchema.model_validate(vacancy_model)
         return vacancy
 
     @classmethod
@@ -66,7 +65,7 @@ class Crud:
             db.add(_vacancy)
             db.commit()
             db.refresh(_vacancy)
-            _vacancy = VacancySchemaIdSkills.from_orm(_vacancy)
+            _vacancy = VacancySchemaIdSkills.model_validate(_vacancy)
             skills = cls.get_skills_for_vacancy(db=db, id_vacancy=_vacancy.id)
             _vacancy.skills = skills
         except Exception as ex:
@@ -99,7 +98,7 @@ class Crud:
     def remove_vacancy(cls, db: Session, vacancy_id: int):
         try:
             _vacancy = cls.get_vacancy_by_id(db=db, vacancy_id=vacancy_id)
-            vacancy_schema = VacancySchemaIdSkills.from_orm(_vacancy)
+            vacancy_schema = VacancySchemaIdSkills.model_validate(_vacancy)
             skills = cls.get_skills_for_vacancy(db=db, id_vacancy=vacancy_id)
             vacancy_schema.skills = skills
 
@@ -129,7 +128,7 @@ class Crud:
 
         db.commit()
         db.refresh(_vacancy)
-        _vacancy = VacancySchemaIdSkills.from_orm(_vacancy)
+        _vacancy = VacancySchemaIdSkills.model_validate(_vacancy)
         _vacancy.skills = vacancy.skills
         return _vacancy
 
@@ -154,7 +153,7 @@ class Crud:
             result = []
             for vacancy in vacancies:
                 logging.info(type(vacancy))
-                _vacancy = VacancySchemaIdSkills.from_orm(vacancy)
+                _vacancy = VacancySchemaIdSkills.model_validate(vacancy)
                 skills = [skill.name for skill in db.query(Skill).join(ConnectionTable).filter(
                     ConnectionTable.c.vacancy_id == vacancy.id).all()]
                 _vacancy.skills = skills

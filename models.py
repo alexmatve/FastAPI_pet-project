@@ -34,6 +34,10 @@ engine = create_engine(f'postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB
 
 Session = sessionmaker(autoflush=True, bind=engine)
 session = Session()
+if session is None:
+    logging.info("connection to DB failed")
+else:
+    logging.info("session connected successfully")
 
 ConnectionTable = Table('connectiontable', Base.metadata,
                         Column('vacancy_id', Integer, ForeignKey("vacancy.id", )),
@@ -59,7 +63,8 @@ class Skill(Base):
     vacancies = relationship('Vacancy', secondary=ConnectionTable, back_populates='skills_t', cascade='all, delete')
 
 
-#Base.metadata.create_all(engine)
+Base.metadata.create_all(engine)
+logging.info("Таблицы прошли проверку и создались при необходимости")
 
 #
 # session.close()

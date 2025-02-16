@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO, filename='data_logging.log',
                     encoding='utf-8')
 
 logging.info("schemas")
-# uvicorn main:app --reload
+
 
 class VacancySchema(BaseModel):
     name: str

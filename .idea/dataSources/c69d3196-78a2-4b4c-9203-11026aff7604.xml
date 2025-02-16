@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>920</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1554</IntrospectionStateNumber>
       <ServerVersion>17.2</ServerVersion>
       <StartupTime>1739485812</StartupTime>
       <TimeZones>true ACDT
@@ -809,7 +809,7 @@ false Zulu
 14704||10|C|G
 14704||-9223372036854775808|U|G
 14704||10|U|G</Grants>
-      <IntrospectionStateNumber>920</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1554</IntrospectionStateNumber>
       <ObjectId>16507</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4231,137 +4231,153 @@ false Zulu
     <schema id="266" parent="4" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>920</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2025-02-15.17:37:19</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>1554</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2025-02-16.12:15:08</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
     <sequence id="267" parent="266" name="skill_id_seq">
-      <ObjectId>16534</ObjectId>
+      <ObjectId>16572</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>918</StateNumber>
+      <StateNumber>1308</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
     <sequence id="268" parent="266" name="vacancy_id_seq">
-      <ObjectId>16525</ObjectId>
+      <ObjectId>16563</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>917</StateNumber>
+      <StateNumber>1308</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
     <table id="269" parent="266" name="connectiontable">
-      <ObjectId>16541</ObjectId>
-      <StateNumber>919</StateNumber>
+      <ObjectId>16581</ObjectId>
+      <StateNumber>1308</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
     <table id="270" parent="266" name="skill">
-      <ObjectId>16535</ObjectId>
-      <StateNumber>918</StateNumber>
+      <ObjectId>16573</ObjectId>
+      <StateNumber>1308</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
     <table id="271" parent="266" name="vacancy">
-      <ObjectId>16526</ObjectId>
-      <StateNumber>917</StateNumber>
+      <ObjectId>16564</ObjectId>
+      <StateNumber>1308</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
     <column id="272" parent="269" name="vacancy_id">
       <Position>1</Position>
-      <StateNumber>919</StateNumber>
+      <StateNumber>1308</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="273" parent="269" name="skill_id">
       <Position>2</Position>
-      <StateNumber>919</StateNumber>
+      <StateNumber>1308</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="274" parent="270" name="id">
+    <foreign-key id="274" parent="269" name="connectiontable_vacancy_id_fkey">
+      <ColNames>vacancy_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16584</ObjectId>
+      <StateNumber>1308</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>16564</RefTableId>
+    </foreign-key>
+    <foreign-key id="275" parent="269" name="connectiontable_skill_id_fkey">
+      <ColNames>skill_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16589</ObjectId>
+      <StateNumber>1308</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>16573</RefTableId>
+    </foreign-key>
+    <column id="276" parent="270" name="id">
       <DefaultExpression>nextval(&apos;skill_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>918</StateNumber>
+      <StateNumber>1308</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16534</SequenceId>
+      <SequenceId>16572</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="275" parent="270" name="name">
+    <column id="277" parent="270" name="name">
       <Position>2</Position>
-      <StateNumber>918</StateNumber>
-      <StoredType>varchar(200)|0s</StoredType>
+      <StateNumber>1308</StateNumber>
+      <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="276" parent="270" name="skill_pkey">
+    <index id="278" parent="270" name="skill_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16539</ObjectId>
+      <ObjectId>16579</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>918</StateNumber>
+      <StateNumber>1308</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="277" parent="270" name="skill_pkey">
+    <key id="279" parent="270" name="skill_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16540</ObjectId>
+      <ObjectId>16580</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>918</StateNumber>
-      <UnderlyingIndexId>16539</UnderlyingIndexId>
+      <StateNumber>1308</StateNumber>
+      <UnderlyingIndexId>16579</UnderlyingIndexId>
     </key>
-    <column id="278" parent="271" name="id">
+    <column id="280" parent="271" name="id">
       <DefaultExpression>nextval(&apos;vacancy_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>917</StateNumber>
+      <StateNumber>1308</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16525</SequenceId>
+      <SequenceId>16563</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="279" parent="271" name="name">
+    <column id="281" parent="271" name="name">
       <Position>2</Position>
-      <StateNumber>917</StateNumber>
-      <StoredType>varchar(200)|0s</StoredType>
+      <StateNumber>1308</StateNumber>
+      <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="280" parent="271" name="salary">
+    <column id="282" parent="271" name="salary">
       <Position>3</Position>
-      <StateNumber>917</StateNumber>
-      <StoredType>varchar(200)|0s</StoredType>
+      <StateNumber>1308</StateNumber>
+      <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="281" parent="271" name="text">
+    <column id="283" parent="271" name="text">
       <Position>4</Position>
-      <StateNumber>917</StateNumber>
-      <StoredType>varchar(1000)|0s</StoredType>
+      <StateNumber>1308</StateNumber>
+      <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="282" parent="271" name="created">
+    <column id="284" parent="271" name="created">
       <Position>5</Position>
-      <StateNumber>917</StateNumber>
-      <StoredType>varchar(1000)|0s</StoredType>
+      <StateNumber>1308</StateNumber>
+      <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="283" parent="271" name="vacancy_pkey">
+    <index id="285" parent="271" name="vacancy_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16532</ObjectId>
+      <ObjectId>16570</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>917</StateNumber>
+      <StateNumber>1308</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="284" parent="271" name="vacancy_pkey">
+    <key id="286" parent="271" name="vacancy_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16533</ObjectId>
+      <ObjectId>16571</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>917</StateNumber>
-      <UnderlyingIndexId>16532</UnderlyingIndexId>
+      <StateNumber>1308</StateNumber>
+      <UnderlyingIndexId>16570</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>
